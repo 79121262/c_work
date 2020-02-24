@@ -64,6 +64,8 @@ int main(int argc, char const *argv[])
 	    	if(isConnected[i])
 	    		FD_SET(i, &readFds);
 
+        //只有当缓存区可读的数据量(接收低水位标记)到达一定程度（默认 1）的时候，我们才能读到数据，不然不就读不到数据了吗。
+        //只有当缓存区剩余一定空间(发送低水位标记)（默认 2048）,你才能写数据进去，不然可能导致空间不够。
 	    if(!select(MAX_SOCK_FD_INDEX, &readFds, NULL, NULL, &timeout))
 	        //如果超时那么跳过循环
 	    	continue;
